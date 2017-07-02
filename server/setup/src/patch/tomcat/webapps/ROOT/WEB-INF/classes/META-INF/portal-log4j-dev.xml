@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyMMdd HH:mm:ss,SSS} %c.%M(%F:%L)%n%-5p %m%n" />
+		</layout>
+	</appender>
+
+
+	<category name="com.liferay.util.mail.MailEngine">
+		<priority value="DEBUG" />
+	</category>
+	<category name="com.aperto">
+		<priority value="DEBUG" />
+	</category>
+	
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+</log4j:configuration>

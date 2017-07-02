@@ -1,0 +1,198 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>server</artifactId>
+		<groupId>de.rm</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>setup</artifactId>
+	<packaging>pom</packaging>
+	<name>setup</name>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>clean</id>
+						<phase>clean</phase>
+						<configuration>
+							<target>
+								<delete dir="${liferay.home}" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>prepare-package</id>
+						<phase>prepare-package</phase>
+						<configuration>
+							<target>
+								<echo message="Copying liferay portal" />
+								<mkdir dir="${liferay.home}" />
+								<copy todir="${liferay.home}">
+									<fileset dir="src/liferay-portal-${liferay.server.version}" />
+								</copy>
+								<chmod dir="${liferay.home}" includes="**/bin/*.sh" perm="700" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>patch</id>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<echo message="Patching liferay portal.." />
+								<copy todir="${liferay.home}" overwrite="true"
+									preservelastmodified="true">
+									<fileset dir="src/patch" />
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>write-project-properties</goal>
+						</goals>
+						<configuration>
+							<outputFile>${liferay.home}/app.properties</outputFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<!-- copy ext-servic and ext-impl dependencies -->
+						<id>copy-ext</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<skip>true</skip>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.aperto.ihk</groupId>
+									<artifactId>ext-service</artifactId>
+									<version>${project.parent.version}</version>
+									<overWrite>true</overWrite>
+									<!-- Copy to lib for tomcat classloader issue https://issues.liferay.com/browse/LPS-29847 -->
+									<outputDirectory>${liferay.home}/${tomcat.dir}/lib/ext</outputDirectory>
+									<destFileName>ext-service.jar</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.aperto.ihk</groupId>
+									<artifactId>ext-impl</artifactId>
+									<version>${project.parent.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${liferay.home}/${tomcat.dir}/webapps/ROOT/WEB-INF/lib</outputDirectory>
+									<destFileName>ext-impl.jar</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.aperto.ihk</groupId>
+									<artifactId>common</artifactId>
+									<version>${project.parent.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${liferay.home}/${tomcat.dir}/webapps/ROOT/WEB-INF/lib</outputDirectory>
+									<destFileName>common-${project.parent.version}.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<!-- Copy war - dependencies to liferay deploy dir -->
+						<id>copy-dependencies</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${liferay.home}/deploy</outputDirectory>
+							<includeTypes>war</includeTypes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.liferay.maven.plugins</groupId>
+				<artifactId>liferay-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>deploy-liferay</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>native2ascii-maven-plugin</artifactId>
+				<version>1.0-beta-1</version>
+				<executions>
+					<execution>
+						<id>do-it</id>
+						<goals>
+							<goal>native2ascii</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<encoding>UTF8</encoding>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+					<workDir>src/patch</workDir>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!-- https://github.com/ktoso/maven-git-commit-id-plugin -->
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+
+				<configuration>
+					<verbose>true</verbose>
+					<generateGitPropertiesFile>true</generateGitPropertiesFile>
+					<generateGitPropertiesFilename>${liferay.home}/git.properties</generateGitPropertiesFilename>
+				</configuration>
+			</plugin>
+
+
+		</plugins>
+	</build>
+	<dependencies>
+<!--		<dependency>
+			<groupId>de.rm</groupId>
+			<artifactId>ext-service</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.rm</groupId>
+			<artifactId>ext-impl</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency> -->
+	</dependencies>
+</project>

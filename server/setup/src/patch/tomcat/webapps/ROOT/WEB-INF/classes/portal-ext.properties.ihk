@@ -1,0 +1,573 @@
+## additional includes
+include-and-override=developer.properties
+include-and-override=user.${user.name}.properties
+include-and-override=server.${env.HOSTNAME}.properties
+include-and-override=server.${env.COMPUTERNAME}.properties
+# IHK-2610: optimized configuration  
+include-and-override=server.optimized.properties
+
+server.logmode=dev
+
+# allow class loading in velocity templates
+velocity.engine.restricted.classes=
+velocity.engine.restricted.variables=
+
+# document library 
+dl.store.impl=com.liferay.portlet.documentlibrary.store.DBStore
+#dl.store.impl=com.liferay.portlet.documentlibrary.store.AdvancedFileSystemStore
+dl.store.file.system.root.dir=${java.io.tmpdir}/ihk-storage/document_library
+persistence-sync.basepath=${java.io.tmpdir}/ihk-storage/sync
+persistence-sync.company-webid=ihk-berlin.de
+persistence-sync.group-url=/tm
+
+# Default company
+company.default.web.id=ihk-berlin.de
+company.default.home.url=/web/guest
+company.default.locale=de_DE
+company.default.time.zone=GMT+1
+
+default.landing.page.path=/user/${liferay:screenName}/dashboard
+
+# disable password reminder queries
+users.reminder.queries.enabled=false
+users.reminder.queries.custom.question.enabled=false
+
+    #
+    # Input a list of sections that will be included as part of the user form
+    # when updating a user in the My Account portlet.
+    #
+    users.form.my.account.main=details
+    users.form.my.account.identification=phone-numbers
+    users.form.my.account.miscellaneous=custom-fields
+    
+
+
+
+# disable automated localization
+com.liferay.portal.servlet.filters.i18n.I18nFilter=false
+
+#dashboard
+# fixes IHK-1499 (only relevant for IE-Browsers)
+#
+com.liferay.portal.servlet.filters.jsoncontenttype.JSONContentTypeFilter=false
+
+
+
+## Breadcrumb Portlet
+
+# Set this to true to show the Guest community as the top level parent in
+# the breadcrumbs. It will only show if it has at least one page.
+breadcrumb.show.guest.group=false
+# Set this to true to show the path of parent communities or organizations
+# in the breadcrumbs. An community or organization will only be shown if it
+# has at least one page.
+breadcrumb.show.parent.groups=true
+
+
+# disable user homepages
+layout.user.private.layouts.enabled=true
+layout.user.private.layouts.modifiable=true
+layout.user.private.layouts.auto.create=true
+layout.user.public.layouts.auto.create=true
+layout.user.public.layouts.enabled=true
+layout.user.public.layouts.modifiable=false
+layout.user.public.layouts.power.user.required=false
+
+#
+# Set this to true to search users from the index. Set this to false to
+# search users from the database. Note that setting this to false will
+# disable the ability to search users based on Expando attributes.
+users.search.with.index=false
+organizations.search.with.index=false
+
+# com.aperto.liferay.ProfilingFilter
+profiling.filter.log.incoming=false
+
+# prevent from launching the browser (was: http://localhost:8080)
+browser.launcher.url=
+
+#
+# Set this to true if all users are required to agree to the terms of use.
+#
+terms.of.use.required=false
+
+#
+# Set the level of verbosity to use for the Liferay-Portal field in the HTTP
+# header response. Valid values are "full", which gives all of the version
+# information (e.g. Liferay Portal Community Edition 6.1.0 CE etc.) or
+# "partial", which gives only the name portion (e.g. Liferay Portal
+# Community Edition).
+#
+http.header.version.verbosity=partial
+
+
+admin.email.from.name=IHK Admin
+admin.email.from.address=admin@ihk-berlin.de
+setup.wizard.enabled=false
+
+service.email.tm=lucida-tm@berlin.ihk.de
+service.email.portal=lucida-tm@berlin.ihk.de
+
+##
+## Default Admin
+## admin@ihk.de : test
+default.admin.screen.name=Admin
+default.admin.email.address.prefix=admin
+default.admin.first.name=IHK
+default.admin.middle.name=
+default.admin.last.name=Admin
+
+
+##
+## Admin Portlet
+##
+
+#
+# Input a list of default group names separated by \n characters that are
+# associated with newly created users.
+#
+admin.default.group.names=Dashboard\nTM\nihk.de
+
+#
+# Input a list of default role names separated by \n characters that are
+# associated with newly created users.
+#
+#admin.default.role.names=User
+admin.default.role.names=Power User\nUser
+
+
+#
+# Set this to true to ensure that a user is synchronized with the default
+# associations of groups, roles, and user groups upon every login. Set this
+# to false if default associations should only be applied to a user when a
+# user is created.
+#
+admin.sync.default.associations=true
+
+
+# 
+# Authentification by screen name 
+# use emailAddress for email-address
+company.security.auth.type=screenName
+
+
+
+##
+## LDAP
+##
+
+# IHK-3508 Import users by LDAP objectSid
+# switch feature off
+com.aperto.ihk.ldap.LdapImportUserProvider.useIt=true
+# send email in case of rename to 'service.email.portal' (see above)
+com.aperto.ihk.ldap.LdapImportUserProvider.sendEmail=true
+
+
+    #
+    # Settings for com.liferay.portal.security.auth.LDAPAuth can be configured
+    # from the Admin portlet. It provides out-of-the-box support for Apache
+    # Directory Server, Microsoft Active Directory Server, Novell eDirectory,
+    # and OpenLDAP. The default settings are for Apache Directory Server.
+    #
+    # The LDAPAuth class must be specified in the property "auth.pipeline.pre"
+    # to be executed.
+    #
+    # Encryption is implemented by com.liferay.util.Encryptor.provider.class in
+    # system.properties.
+    #
+    ldap.auth.enabled=true
+    ldap.auth.required=true
+ldap.server.ids=0
+    #
+    # Set this to true to enable password checking by the internal portal
+    # authentication. If set to false, you're essentially delegating password
+    # checking is delegated to the authenticators configured in
+    # "auth.pipeline.pre" and "auth.pipeline.post" settings.
+    #
+    auth.pipeline.enable.liferay.check=false
+
+
+    #
+    # Settings for importing users and groups from LDAP to the portal.
+    #
+    ldap.import.enabled=true
+    ldap.import.on.startup=true
+    # invalid, using cron trigger; see liferay-portlet.xml
+    ldap.import.interval=1440
+
+    # Transform octet-strings to string representation
+    ldap.attrs.transformer.impl=com.aperto.ihk.ldap.IHKAttributesTransformer
+
+    # Set this to true to use the LDAP's password policy instead of the portal
+    # password policy.
+    #
+    ldap.password.policy.enabled=false
+
+    #
+    # Set this to false when the LDAP user's password should not be imported.
+    #
+    ldap.import.user.password.enabled=false
+ 	ldap.import.user.password.autogenerated=false
+ 	auth.pipeline.pre=com.aperto.ihk.sso.AdminAuth
+ 	
+    #
+    # Set either user or group for import method. If set to user, the portal
+    # will import all users and the groups associated with those users. If set
+    # to group, the portal import all groups and the users associated those
+    # groups. This value should be set based on how your LDAP server stores
+    # group membership information.
+    #
+    ldap.import.method=user
+    #ldap.import.method=group
+
+    #
+    # Settings for exporting users from the portal to LDAP. This allows a user
+    # to modify his first name, last name, etc. in the portal and have that
+    # change pushed to the LDAP server. This setting is not used unless the
+    # property "ldap.auth.enabled" is set to true.
+    #
+    ldap.export.enabled=false
+
+    #
+    # Set this to true if groups and their associations should be exported from
+    # the portal to LDAP. This setting is not used unless the property
+    # "ldap.auth.enabled" is set to true.
+    #
+    ldap.export.group.enabled=false
+
+    #
+    # Set the values used to connect to a LDAP store.
+    #
+    # The list of properties must end with a subsequent integer (0, 1, etc.) and
+    # it is assumed that the list has reached an end when the pattern or
+    # replacement is not set.
+    #
+ldap.base.provider.url.0=ldap://dc01.aperto.de:389
+ldap.base.dn.0=ou=Berlin,dc=aperto,dc=de
+ldap.security.principal.0=CN=USR_Liferay,OU=IHK,OU=_TESTING,DC=aperto,DC=de
+ldap.security.credentials.0=Ekiwogese989
+
+# treats objectSid-attribute as binary and not as String (important for converting into string)
+ldap.connection.java.naming.ldap.attributes.binary=objectSid
+
+
+
+    #
+    # Active Directory stores information about the user account as a series of
+    # bit fields in the UserAccountControl attribute.
+    #
+    # If you want to prevent disabled accounts from logging into the portal you
+    # need to use a search filter similiar to the following:
+    # (&(objectclass=person)(userprincipalname=@email_address@)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))
+    #
+    # See the following links:
+    #     http://support.microsoft.com/kb/305144/
+    #     http://support.microsoft.com/?kbid=269181
+    #
+#ldap.auth.search.filter.0=(mail=@email_address@)
+ldap.auth.search.filter.0=(sAMAccountName=@screen_name@)
+
+    #
+    # When importing and exporting users, the portal will use this mapping to
+    # connect LDAP user attributes and portal contact attributes.
+    #
+    # See com.liferay.portal.model.ContactModel for a list of attributes.
+    #
+ldap.contact.mappings.0=
+
+    #
+    # When importing and exporting users, the portal will use this mapping to
+    # connect LDAP user attributes and portal contact's custom attributes.
+    #
+ldap.contact.custom.mappings.0=
+
+    #
+    # When a user is exported to LDAP and the user does not exist, the user will
+    # be created with the following default object classes.
+    #
+ldap.user.default.object.classes.0=top,person,inetOrgPerson,organizationalPerson
+
+    #
+    # When importing and exporting users, the portal will use this mapping to
+    # connect LDAP user attributes and portal user attributes.
+    #
+    # See com.liferay.portal.model.UserModel for a list of attributes.
+    #
+ldap.user.mappings.0=screenName=sAMAccountName\npassword=userPassword\nemailAddress=mail\nfirstName=givenName\nlastName=sn\njobTitle=title\ngroup=memberOf\n
+
+    #
+    # When importing and exporting users, the portal will use this mapping to
+    # connect LDAP user attributes and portal user's custom attributes.
+    # Import objectSid for users into ldapObjectSid Expando
+    #
+ldap.user.custom.mappings.0=ldapObjectSid=objectSid
+
+    #
+    # Set the user attributes that are controlled from the portal. When adding
+    # or updating a user from LDAP, these attributes will be skipped.
+    #
+    ldap.user.ignore.attributes=
+    #ldap.user.ignore.attributes=aimSn,comments,facebookId,facebookSn,greeting,icqSn,jabberSn,jobTitle,languageId,msnSn,mySpaceSn,openId,prefixId,reminderQueryAnswer,reminderQueryQuestion,skypeSn,smsSn,suffixId,timeZoneId,twitterSn,ymSn
+
+    #
+    # When a group is exported to LDAP and the group does not exist, the group
+    # will be created with the following default object classes.
+    #
+    #ldap.group.default.object.classes.0=top,groupOfUniqueNames
+
+    #
+    # When importing groups, the portal will use this mapping to connect LDAP
+    # group attributes and portal user group attributes.
+    #
+ldap.group.mappings.0=groupName=cn\ndescription=description\nuser=uniqueMember\n
+
+    #
+    # Settings for importing users and groups from LDAP to the portal. These
+    # setttings are not used unless the property "ldap.import.enabled" is set
+    # to true.
+    #
+ldap.import.user.search.filter.0=(&(objectClass=person)(mail=*@aperto.de)(givenName=*)(sn=*))
+ldap.import.group.search.filter.0=(objectClass=groupOfUniqueNames)
+
+# Group filters not working
+ldap.import.group.search.filter.enabled=false
+
+
+#
+# Set this to true to enable CAS single sign on. NTLM will work only if
+# LDAP authentication is also enabled and the authentication is made by
+# screen name. If set to true, then the property "auto.login.hooks" must
+# contain a reference to the class
+# com.liferay.portal.security.auth.CASAutoLogin and the filter
+# com.liferay.portal.servlet.filters.sso.cas.CASFilter must be referenced
+# in web.xml.
+#
+cas.auth.enabled=false
+
+cas.login.url=https://cas.aperto.de/cas/login
+cas.logout.url=https://cas.aperto.de/cas/logout
+cas.server.name=localhost:8080
+cas.server.url=https://cas.aperto.de/cas/
+
+
+
+
+value.object.entity.cache.enabled.com.aperto.ihk.tm.model.Topic=false
+value.object.entity.cache.enabled.com.aperto.ihk.tm.model.Contribution=false
+
+ #used for including user portlet im theme
+portlet.add.default.resource.check.whitelist=58,86,87,88,103,113,145,notification_WAR_notificationportlet,userportlet_WAR_tmportlet,searchportlet_WAR_mpportlet,bootstrapportlet_WAR_dashboardportlet
+ #changed max size for image upload
+  users.image.max.size=1228800
+
+#   #changed max height and width
+    users.image.max.height=85
+    users.image.max.width=75
+
+
+    #
+    # Set the auto-extend mode to true to avoid having to ask the user whether
+    # to extend the session or not. Instead it will be automatically extended.
+    # The purpose of this mode is to keep the session open as long as the user
+    # browser is open and with a portal page loaded. It is recommended to use
+    # this setting along with a smaller "session.timeout", such as 5 minutes for
+    # better performance.
+    #
+    session.timeout.auto.extend=true
+    # session timeout minutes
+    session.timeout=180
+    session.timeout.warning=0
+    # in minutes / overrides session timeout @see com.aperto.ihk.dashboard.listener.SessionListener
+	aperto.session.timeout=360
+    webdav.nonce.expiration=360
+    
+session.cookie.use.full.hostname=false
+session.test.cookie.support=false
+
+
+    #
+    # Set the maximum number of pages available above and below the currently
+    # displayed page.
+    #
+    search.container.page.iterator.max.pages=5
+    
+    
+   
+# pollinterval documents
+documents.pollinterval=5000
+# allow all
+dl.file.max.size=0
+# 100 MB
+com.liferay.portal.upload.UploadServletRequestImpl.max.size=104857600
+
+user.group.import.filename=/content/test-Lucida-TM-Mitarbeiteruebersicht.csv
+user.group.import.renew=false
+
+
+#
+# Enabling OpenOffice integration allows the Document Library portlet and
+# the Wiki portlet to provide conversion functionality. This is tested with
+# OpenOffice 2.3.x through 3.2.x. It is recommended that you have OpenOffice
+# on the same machine. Using a remote host for the instance is not fully
+# supported and could lead to various problems. To start OpenOffice as
+# service, run the command:
+#
+# soffice -headless -accept="socket,host=127.0.0.1,port=8100;urp;"
+#
+
+openoffice.server.enabled=true
+openoffice.server.host=127.0.0.1
+openoffice.server.port=8002
+openoffice.cache.enabled=true
+
+dl.file.entry.preview.enabled=false
+dl.file.entry.thumbnail.enabled=true
+dl.file.entry.thumbnail.max.height=120
+dl.file.entry.thumbnail.max.width=120
+dl.file.entry.thumbnail.document.depth=8
+dl.file.entry.thumbnail.document.dpi=72
+
+## migration 6.2
+passwords.encryption.algorithm.legacy=SHA
+resource.importer.renew=false
+
+#json API 
+json.web.service.enabled=true
+
+##### IHK Document performance problems
+#
+# Set this to true to configure entity level caching to block. See the
+# property "ehcache.blocking.cache.allowed" for more information.
+#
+value.object.entity.blocking.cache=false
+#
+# Set this to true to configure finder level caching to block. See the
+# property "ehcache.blocking.cache.allowed" for more information.
+#
+value.object.finder.blocking.cache=false
+
+#
+# Set the location of the default company logo image that is used for
+# missing company logo images. This image must be available in the class
+# path.
+#
+image.default.company.logo=content/ihk-logo.png
+
+# avoiding password change requirement
+passwords.default.policy.change.required=false
+
+# setting default theme
+default.regular.theme.id=globaltheme_WAR_globaltheme
+
+# IHK-2337: user may not login automatically
+company.security.auto.login=false
+
+# users private page configuration
+#
+# page-title
+#default.user.private.layout.name=Dashboard
+
+# page-layout
+#
+#default.user.private.layout.template.id=ihk-dashboard
+
+#
+# portlets to include from scratch
+#
+#default.user.private.layout.column-1=
+#default.user.private.layout.column-2=fachanwendungenportlet_WAR_dashboardportlet,toolsandservicesportlet_WAR_dashboardportlet
+#default.user.private.layout.column-3=quicknoteportlet_WAR_dashboardportlet,ausdemlehtopicboxportlet_WAR_dashboardportlet
+#default.user.private.layout.column-4=
+
+#
+# friendly url
+#
+#default.user.private.layout.friendly.url=/dashboard
+
+# Specify a LAR file that can be used to create the user private layouts. If
+# this property is set, the previous layout properties will be ignored.
+#
+default.user.private.layouts.lar=${liferay.home}/deploy/default_startseite.lar
+
+
+
+# user profile
+default.user.public.layout.name=Profil
+default.user.public.layout.template.id=1_column
+default.user.public.layout.column-1=userprofileportlet_WAR_dashboardportlet
+default.user.public.layout.column-2=
+default.user.public.layout.friendly.url=/home
+#default.user.public.layouts.lar=${liferay.home}/deploy/default_user_public.lar
+
+
+
+
+default.asset.destination.groupName=Dashboard
+
+# disable using search-index for asset-publisher
+asset.publisher.search.with.index=false
+
+# kbm import
+# see: /mp-portlet/src/main/java/com/aperto/ihk/mp/connector/ConnectorPortlet.java
+connector.file.kbmcsv=${liferay.home}/data/wegweiser_data_kbm.txt
+connector.file.domingocsv=${liferay.home}/data/user_data_crm.txt
+#com.aperto.ihk.dashboard.connector.version=initial
+com.aperto.ihk.dashboard.connector.version=2017
+com.aperto.ihk.dashboard.connector.plugins=\
+	com.aperto.ihk.dashboard.connector.KbmExpandoImportPlugin,\
+	com.aperto.ihk.dashboard.connector.TMReportGroupImport,\
+	com.aperto.ihk.dashboard.connector.RoomNumberImportPlugin
+	
+
+
+
+#
+# Specify the locales that are enabled by default.
+#
+locales.enabled=de_DE
+time.zones=Europe/Paris
+
+#
+# login-page
+#
+default.guest.public.layout.name=MyLucida-Login
+default.guest.public.layout.template.id=1_column
+default.guest.public.layout.column-1=58
+default.guest.public.layout.column-2=
+default.guest.public.layout.column-3=
+# login-page
+#
+default.guest.public.layout.column-4=
+
+# IHK-2161: avoid indexing all versions of an article
+journal.articles.index.all.versions=false
+
+# IHK-2243: setting max. size of articles small image to 250kB
+journal.image.small.max.size=256000
+
+journal.article.form.add=content,abstract,categorization,contact,schedule,display-page,related-assets,permissions
+journal.article.form.update=content,abstract,categorization,contact,schedule,display-page,related-assets
+
+## create user homepages on user creation
+value.object.listener.com.liferay.portal.model.User=com.aperto.ihk.actions.CustomPreAction
+servlet.service.events.pre=com.liferay.portal.events.ServicePreAction,com.aperto.ihk.actions.CustomPreAction,com.liferay.portal.events.DeviceServicePreAction,com.liferay.portal.events.ThemeServicePreAction
+
+# IHK-2668: journalarticle-editor is closing again (permit redirects from any ip-adress)
+redirect.url.ips.allowed=
+
+# IHK-2820: owners may always edit own comments in discussion
+discussion.comments.always.editable.by.owner=true
+
+# IHK-2950: adding teaser as own type
+journal.article.types=announcements,blogs,general,news,press-release,teaser,test
+
+
+# search mapping @seet com.aperto.liferay.search.ConfigUtil
+ifinder.driveG.root=//gruppen/gruppen$/IHK
+ifinder.driveGArchive.root=//gruppen/gruppen$
+ifinder.driveG.mapping=G:
+ifinder.driveGArchive.mapping=Z:
+
+
+# etracker.secure.code is defined in /setup-hook/src/main/resources/portal.properties 
+# for hot - deployment

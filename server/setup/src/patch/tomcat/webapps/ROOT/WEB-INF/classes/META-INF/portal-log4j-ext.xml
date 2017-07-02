@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!--  
+	Configuration for testing
+	Rolling file appender in debug mode
+ -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	
+   <appender name="FILE" class="org.apache.log4j.rolling.RollingFileAppender">  
+
+        <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">  
+            <param name="ActiveFileName" value="${catalina.home}/logs/ihk.log"/>  
+            <param name="FileNamePattern" value="${catalina.home}/logs/ihk-%d{yyyyMMdd-HHmmss}.log.zip"/>  
+            <param name="MaxIndex" value="10"/>  
+        </rollingPolicy>
+        
+       	<triggeringPolicy class="org.apache.log4j.rolling.SizeBasedTriggeringPolicy">  
+           	<param name="MaxFileSize" value="100000000"/>  
+       	</triggeringPolicy> 
+	 
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="%d{yyMMdd HH:mm:ss,SSS} %c.%M(%F:%L)%n%-5p %m%n"/>  
+        </layout>  
+    </appender>  
+	
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyMMdd HH:mm:ss,SSS} %c.%M(%F:%L)%n%-5p %m%n" />
+		</layout>
+	</appender>
+
+
+	<category name="de.ronald">
+		<priority value="DEBUG" />
+	</category>
+	
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+</log4j:configuration>

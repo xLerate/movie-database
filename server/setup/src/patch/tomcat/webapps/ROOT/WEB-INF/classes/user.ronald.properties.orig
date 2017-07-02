@@ -1,0 +1,78 @@
+server.testmode=true
+
+web.server.http.port=8080
+web.server.https.port=80
+web.server.host=
+web.server.protocol=http
+
+web.server.default.host=suche.aperto.de
+web.server.virtualhost.TM=tm.aperto.de
+#web.server.virtualhost.MP=suche.aperto.de
+#web.server.virtualhost.Control\u0020Panel=portal.dev.aperto.de
+
+session.cookie.domain=aperto.de
+
+default.admin.password=test
+
+# local mysql db
+jdbc.default.driverClassName=com.mysql.jdbc.Driver
+jdbc.default.url=jdbc:mysql://localhost/movies?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false
+jdbc.default.username=ihk
+jdbc.default.password=ihk
+
+# MS SQL-Server
+#jdbc.default.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+#jdbc.default.url=jdbc:sqlserver://bersvr00019.aperto.de:1433;DatabaseName=ihk_p;integratedSecurity=false;logSlowQueries=true;maxActive=100;maxIdle=30;maxWait=10000
+#jdbc.default.username=ihk_p
+#jdbc.default.password=dKSTPopnkR
+
+
+# document library 
+dl.store.impl=com.liferay.portlet.documentlibrary.store.DBStore
+#dl.store.impl=com.liferay.portlet.documentlibrary.store.AdvancedFileSystemStore
+dl.store.file.system.root.dir=${user.home}/ihk-storage/document_library
+persistence-sync.basepath=${user.home}/ihk-storage/sync
+persistence-sync.company-webid=ihk-berlin.de
+persistence-sync.group-url=/tm
+
+
+
+company.security.auth.requires.https=false
+
+auth.token.check.enabled=false
+
+##
+# Aperto-LDAP (Sprint 1/15)
+# 
+
+#ldap.connection.java.naming.ldap.attributes.binary=objectSid
+#ldap.import.user.search.filter.0=(&(objectClass=person)(mail=*@aperto.de)(givenName=*))
+#ldap.import.group.search.filter.0=(objectClass=group)
+#ldap.group.mappings.0=groupName=cn\ndescription=description\nuser=member\nobjectSid=objectSid\n
+
+
+# LDAP-configuration (IHK-LAB)
+ldap.base.provider.url.0=ldap://10.107.208.10:389
+ldap.base.dn.0=OU=Mitarbeiter,OU=Benutzerkonten,DC=ihkberlin,DC=test
+ldap.security.principal.0=ldapquerylab@ihkberlin.test
+ldap.security.credentials.0=htqlmxzZ15
+
+ldap.connection.java.naming.ldap.attributes.binary=objectSid
+ldap.import.user.search.filter.0=(&(objectClass=person)(givenName=*))
+ldap.import.group.search.filter.0=(objectClass=group)
+ldap.group.mappings.0=groupName=cn\ndescription=description\nuser=member\nobjectSid=objectSid\n
+
+# IntraFind-Testinstanz (IHK-LAB)
+#
+#ifinder.use=new
+ifinder.use=internal
+
+ifinder.baseHost=10.107.208.15
+ifinder.service.search.port=9606
+ifinder.service.autocomplete.port=9606
+ifinder.service.thesaurus.port=9601
+ifinder.service.index.port=9606
+
+# HR-Portal service
+timetracking.baseUrl=https://10.107.2.107/timetracker/api
+timetracking.hrPortalUrl=https://lucida-ma-test.ihkberlin.intern/mportal

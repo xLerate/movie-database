@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<license>
+		 <account-name>IHK Berlin - Project Lucida</account-name>
+		 <owner>IHK Berlin - Project Lucida</owner>
+		 <description>IHK Berlin - Project Lucida</description>
+		 <product-name>Portal Non-Production</product-name>
+		 <product-version>6.1 GA1</product-version>
+		 <license-name>Portal Non-Production</license-name>
+		 <license-type>production</license-type>
+		 <license-version>3</license-version>
+		 <start-date>Friday, May 31, 2013 10:00:00 PM GMT</start-date>
+		 <expiration-date>Sunday, May 7, 2113 10:00:00 PM GMT</expiration-date>
+		 <host-names>
+		 		 <host-name>testing.ihk.aperto.de</host-name>
+		 </host-names>
+		 <ip-addresses>
+		 		 <ip-address>10.18.51.40</ip-address>
+		 </ip-addresses>
+		 <mac-addresses>
+		 		 <mac-address>52:3b:91:e0:4b:77</mac-address>
+		 </mac-addresses>
+		 <key>e0d5cb8bbebf2b201ac68ea289859bcaa70dfdbcc7ad3db35bc6569b4f67d158afae2c412014421b1585c5dd0591e3977cf2de703669da5f56768b3795f323b5e5f6997ba75ab91f8c9dfc40adebd1fb9bb644c8c980d99d1358c10d01ea6cd3a082ff98dc56bbd23492a8f67b3318e9f0b49d2f7453c652e82a535992f1c303a70a3b69</key>
+</license>

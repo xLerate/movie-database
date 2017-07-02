@@ -1,0 +1,25 @@
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<!-- 
+	http://www.servletsuite.com/servlets/httpproxy.htm
+	 -->
+	<servlet>
+		<servlet-name>HttpProxy</servlet-name>
+		<servlet-class>com.jsos.httpproxy.HttpProxyServlet</servlet-class>
+		<init-param>
+			<param-name>host</param-name>
+			<param-value>http://ifinder.ihkberlin.intern/www/autocomplete.do</param-value>
+		</init-param>
+		<init-param>
+			<param-name>log</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>HttpProxy</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>

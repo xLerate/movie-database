@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<license>
+		 <account-name>IHK Berlin - Project Lucida</account-name>
+		 <owner>IHK Berlin - Project Lucida</owner>
+		 <description>IHK Berlin - Project Lucida</description>
+		 <product-name>Portal Non-Production</product-name>
+		 <product-version>6.1 GA1</product-version>
+		 <license-name>Portal Non-Production</license-name>
+		 <license-type>production</license-type>
+		 <license-version>3</license-version>
+		 <start-date>Friday, May 31, 2013 10:00:00 PM GMT</start-date>
+		 <expiration-date>Sunday, May 7, 2113 10:00:00 PM GMT</expiration-date>
+		 <host-names>
+		 		 <host-name>BERSVR00018</host-name>
+		 </host-names>
+		 <ip-addresses>
+		 		 <ip-address>10.18.50.16</ip-address>
+		 </ip-addresses>
+		 <mac-addresses>
+		 		 <mac-address>00:15:5D:85:13:00</mac-address>
+		 </mac-addresses>
+		 <key>e1d5af8b3bbffb2078c61ba27e8557ca3a0d2bbc31ad98b368c6e99b22678f5865ae83414014ae1b878539dd27917997b5f2e77091696a5f7276903731f30eb558734bf7a75ab91f8c9dfc40adebd1fb9bb644c8c980d99d1358c10d01ea6cd3a082ff98dc56bbd23492a8f67b3318e9f0b49d2f7453c652e82a535992f1c303a70a3b69</key>
+</license>
