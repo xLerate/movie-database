@@ -1,3 +1,4 @@
+import com.liferay.portal.kernel.search.facet.AssetEntriesFacet;
 import com.liferay.portlet.asset.model.AssetEntry;
 import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
 import com.liferay.portlet.asset.service.AssetLinkLocalServiceUtil;
@@ -12,5 +13,6 @@ public void test() {
 //		AssetEntry asset = null; asset.getTitleCurrentValue()
 //		//article.getIPrimaryKey();
 //		JournalStructureLocalServiceUtil.getStructure(groupId, structureId) article.getStructureId()
+	//AssetEn
 }
 }
